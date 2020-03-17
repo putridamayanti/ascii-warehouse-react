@@ -13,7 +13,6 @@ export function fetchProducts(page = 0, sort = 'id') {
             })
             .then(json => {
                 var data = JSON.parse(json.toString());
-                console.log(data);
                 dispatch({
                     type: 'FETCH_SUCCESS',
                     payload: data,

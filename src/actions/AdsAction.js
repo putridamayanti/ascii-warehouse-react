@@ -1,7 +1,7 @@
 import { BaseUrl } from '../constants/Api';
 
 export function fetchAds() {
-    console.log('Fetch Ads');
+
     let r = Math.floor(Math.random()*1000);
 
     return async dispatch => {

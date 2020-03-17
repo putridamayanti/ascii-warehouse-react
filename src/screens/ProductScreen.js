@@ -1,16 +1,13 @@
 import React from 'react';
 import {connect} from "react-redux";
-// import moment from "moment";
-// import InfiniteScroll from 'react-infinite-scroller';
-//
-// import AdsItem from '../components/AdsItem';
+
 import ProductList from '../components/ProductList';
 import Loading from '../components/Loading';
 import EndList from '../components/EndList';
 
 import { fetchAds } from "../actions/AdsAction";
 import { fetchProducts } from "../actions/ProductAction";
-import {Button, Col, Form, Row, Spinner} from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 class ProductScreen extends React.Component {
     constructor(props) {
@@ -60,7 +57,7 @@ class ProductScreen extends React.Component {
         const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
         const windowBottom = windowHeight + window.pageYOffset;
         if (windowBottom >= docHeight) {
-            console.log('Bottom');
+
             if (!this.state.end) {
                 this.props.fetchProducts(page);
                 let products   = [];

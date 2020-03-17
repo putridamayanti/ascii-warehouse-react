@@ -15,7 +15,7 @@ export default class AdsItem extends React.Component {
 
     render() {
         const { ads } = this.props;
-        // console.log(ads);
+
         return (
             <Card style={{ height: 150, marginBottom: 15 }}>
                 <Card.Body>
