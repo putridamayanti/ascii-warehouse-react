@@ -1,23 +1,22 @@
 import { BaseUrl } from '../constants/Api';
 
 export function fetchAds() {
+    console.log('Fetch Ads');
+    let r = Math.floor(Math.random()*1000);
+
     return async dispatch => {
-        fetch(BaseUrl + 'api/products?limit=20')
+        fetch(BaseUrl + 'ads?r=' + r)
             .then(result => {
                 if (result.status === 200) {
-                    return result.text();
+                    dispatch({
+                        type: 'FETCH_ADS_SUCCESS',
+                        payload: result.url
+                    })
                 }
-            })
-            .then(json => {
-                var data = JSON.parse(json.toString());
-                dispatch({
-                    type: 'FETCH_SUCCESS',
-                    payload: data
-                })
             })
             .catch(error => {
                 dispatch({
-                    type: 'FETCH_ERROR',
+                    type: 'FETCH_ADS_ERROR',
                     payload: error
                 })
             })
