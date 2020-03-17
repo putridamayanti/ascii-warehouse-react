@@ -5,6 +5,9 @@ import {connect} from "react-redux";
 //
 // import AdsItem from '../components/AdsItem';
 import ProductList from '../components/ProductList';
+import Loading from '../components/Loading';
+import EndList from '../components/EndList';
+
 import { fetchAds } from "../actions/AdsAction";
 import { fetchProducts } from "../actions/ProductAction";
 import {Button, Col, Form, Row, Spinner} from "react-bootstrap";
@@ -93,7 +96,7 @@ class ProductScreen extends React.Component {
         return (
             <div>
                 <Form>
-                    <Form.Group controlId="exampleForm.ControlSelect1" onChange={(event) => this.handleSort(event)}>
+                    <Form.Group onChange={(event) => this.handleSort(event)}>
                         <Form.Label>Sort by</Form.Label>
                         <Form.Control as="select">
                             <option value='id'>Id</option>
@@ -103,19 +106,13 @@ class ProductScreen extends React.Component {
                     </Form.Group>
                 </Form>
 
-                { this.props.errors ? (
-                    <h1>{ this.props.errors }</h1>
-                ): null}
+                { this.props.errors && <h1>{ this.props.errors }</h1> }
 
                 <ProductList products={this.state.products}/>
 
-                {
-                    this.props.loading ? (
-                        <Spinner animation="border" role="status">
-                            <span className="sr-only">Loading...</span>
-                        </Spinner>
-                    ) : null
-                }
+                { this.props.loading && <Loading/> }
+
+                { this.state.end && <EndList/>}
 
             </div>
         );
