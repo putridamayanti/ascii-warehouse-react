@@ -1,77 +1,54 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './constants/Style';
 import { connect} from "react-redux";
-import moment from "moment";
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { fetchProducts } from "./actions/ProductAction";
-import ProductItem from './components/ProductItem';
-import {Button, Card, Col, Container, Form, Row, Spinner} from "react-bootstrap";
+import ProductScreen from './screens/ProductScreen';
+
+import { fetchAds } from "./actions/AdsAction";
+
+import {Col, Container, Row} from "react-bootstrap";
 
 class App extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            products : []
-        };
     }
 
     componentDidMount() {
-        this.props.fetchProducts();
+        this.props.fetchAds();
     }
 
     render() {
-        const products = this.props.products;
 
         return (
             <div className="App">
-                <Container>
-                    <Form>
-                        <Form.Group controlId="exampleForm.ControlSelect1">
-                            <Form.Label>Sort by</Form.Label>
-                            <Form.Control as="select">
-                                <option>Id</option>
-                                <option>Size</option>
-                                <option>Price</option>
-                            </Form.Control>
-                        </Form.Group>
-                    </Form>
-                    {
-                        this.props.loading ? (
-                            <Spinner animation="border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </Spinner>
-                        ) : (
-                            <Row>
-                                { products.map((item, i) => {
-                                    var date = moment(item.date).format("YYYY-MM-DD");
-                                    var itemDate = moment(date, "YYYYMMDD").fromNow();
+                <div style={{ background: `linear-gradient(#654ea3, #eaafc8)`, color: '#fff', padding: 50 }}>
+                    <Container>
+                        <Row>
+                            <Col lg={6}>
+                                <h1>Products Grid</h1>
 
-                                    return (
-                                        <Col xs={6} key={i}>
-                                            <Card style={{ height: 150, marginBottom: 15 }}>
-                                                <Card.Body>
-                                                    <Card.Title style={{ fontSize: item.size }}>{ item.face }</Card.Title>
-                                                    <Card.Text>${ item.price }</Card.Text>
-                                                </Card.Body>
-                                                <Card.Footer style={{ fontSize: 12 }}>{ itemDate }</Card.Footer>
-                                            </Card>
-                                        </Col>
-                                    );
-                                })}
+                                <p>Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to
+                                    peruse our selection of ascii faces in an exciting range of sizes and prices.</p>
 
-                            </Row>
-                        )
-                    }
-                    { this.props.errors ? (
-                        <h1>{ this.props.errors }</h1>
-                    ): null}
+                                <p>But first, a word from our sponsors:</p>
+                            </Col>
+                            <Col lg={6}>
+                                <img src={ this.props.ads } style={{ borderWidth: 2, borderColor: '#fff', borderStyle: 'solid'}}/>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+
+                <Container style={{ padding: 50 }}>
+                    <Router>
+                        <Route exact path="/" component={ ProductScreen }/>
+                    </Router>
                 </Container>
-
             </div>
         );
     }
@@ -79,10 +56,10 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        products: state.productStore.products,
-        loading: state.productStore.loading,
-        error: state.productStore.error
+        ads         : state.adsStore.ads,
+        loading     : state.productStore.loading,
+        error       : state.productStore.error
     }
 }
 
-export default connect(mapStateToProps, { fetchProducts })(App);
+export default connect(mapStateToProps, { fetchAds })(App);
