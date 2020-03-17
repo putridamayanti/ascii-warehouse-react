@@ -1,5 +1,5 @@
 ASCII Warehouse React Redux
-----
+====
 Task for job interview ascii warehouse using React.js
 Instructions :
 - Install dependencies `npm install`
