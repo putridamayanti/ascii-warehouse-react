@@ -1,3 +1,11 @@
+ASCII Warehouse React Redux
+----
+Task for job interview ascii warehouse using React.js
+Instructions :
+- Install dependencies `npm install`
+- Run development server `npm run dev:server`
+- Run react scripts `npm run start`
+
 Products Grid
 ====
 
